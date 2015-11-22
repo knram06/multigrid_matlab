@@ -14,7 +14,7 @@ iterCount=1;
 tic;
 while(norm > cmpNorm)
     u = gauss_seidel_smoother(u, d, h, 1);
-    [~, norm]=calc_residual(u, d, h);
+    [r, norm]=calc_residual(u, d, h);
     fprintf('%10d %10.9g\n', iterCount, norm);
     iterCount = iterCount+1;
 end

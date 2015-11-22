@@ -12,7 +12,7 @@ d = allocGridLevels(coarseGridPoints, numLevels);
 u{numLevels} = setupBoundaryConditions(u{numLevels}, h);
 
 % TODO: store and preallocate A matrix - Store its LU?
-A = constructCoarseMatrix(coarseGridPoints);
+A = constructCoarseMatrix(coarseGridPoints, hc);
 [L,U] = lu(A);
 
 % call the mg method
