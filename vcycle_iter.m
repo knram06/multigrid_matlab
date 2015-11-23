@@ -1,5 +1,18 @@
 function res = vcycle_iter(length, coarseGridPoints, numLevels, gsIterNum, useFMG)
 
+global capRadius;
+capRadius = 1.326e-5;
+global extrInnerRad;
+extrInnerRad = 1e-4;
+global extrOuterRad;
+extrOuterRad = 1.4e-4;
+global capVoltage;
+capVoltage = 0;
+global extrVoltage;
+extrVoltage = -1350;
+global center;
+center = [length/2, length/2];
+
 finestGridPoints = ((coarseGridPoints-1)*pow2(numLevels-1)) + 1;
 h = length/(finestGridPoints-1);      % finest level spacing
 hc = length/(coarseGridPoints-1);     % coarse level spacing
@@ -21,7 +34,7 @@ toler = 1e-8;
 [~,initNorm] = calc_residual(u{numLevels}, d{numLevels}, h);
 cmpNorm = initNorm*toler;
 
-norm = 100;
+norm = initNorm;
 % do FMG initialization?
 if(useFMG)
     [u, norm] = fmg_init(u, d, numLevels, hc, gsIterNum, 1, L, U);
