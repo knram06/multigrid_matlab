@@ -25,27 +25,27 @@ for count=1:gsIterNum
                     + u(i, j, k-1) + u(i, j, k+1) ...
                     - hSq*d(i, j, k) );
                 
-                % update Neumann node with latest value
-                % so as to keep residual at zero
-                if( i==2 || i==xLen-1 )
-                    tz = (k-1)*h - center(2);
-                    ty = (j-1)*h - center(1);
-                    rr = ty*ty + tz*tz;
-
-                    % if on inner node adj to boundary
-                    if(i==2)
-                        if( rr > capRadius*capRadius )
-                            u(1, j, k) = u(2, j, k);
-                        end        
-                    else
-                        if( (rr <= extrInnerRad*extrInnerRad) ...
-                                 || ...
-                            (rr >= extrOuterRad*extrOuterRad) )
-                            u(xLen, j, k) = u(xLen-1, j, k);
-                        end
-                    end
-
-                end
+%                 % update Neumann node with latest value
+%                 % so as to keep residual at zero
+%                 if( i==2 || i==xLen-1 )
+%                     tz = (k-1)*h - center(2);
+%                     ty = (j-1)*h - center(1);
+%                     rr = ty*ty + tz*tz;
+% 
+%                     % if on inner node adj to boundary
+%                     if(i==2)
+%                         if( rr > capRadius*capRadius )
+%                             u(1, j, k) = u(2, j, k);
+%                         end        
+%                     else
+%                         if( (rr <= extrInnerRad*extrInnerRad) ...
+%                                  || ...
+%                             (rr >= extrOuterRad*extrOuterRad) )
+%                             u(xLen, j, k) = u(xLen-1, j, k);
+%                         end
+%                     end
+% 
+%                 end
                 
                 % if on Y=0 or END faces
                 if( j == 2 )

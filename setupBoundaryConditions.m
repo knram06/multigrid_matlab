@@ -19,9 +19,9 @@ for k=1:K
         ty = h*(j-1)-center(1);
         rr = ty*ty + tz*tz;
         
-        if(rr <= capRadius*capRadius)
-            arr(i, j, k) = capVoltage;
-        end
+        %if(rr <= capRadius*capRadius)
+        arr(i, j, k) = capVoltage;
+        %end
     end
 end
 
@@ -33,9 +33,9 @@ for k=1:K
         ty = h*(j-1)-center(1);
         rr = ty*ty + tz*tz;
         
-        if((rr > extrInnerRad*extrInnerRad) && (rr < extrOuterRad*extrOuterRad) )
-            arr(i, j, k) = extrVoltage;
-        end
+        %if((rr > extrInnerRad*extrInnerRad) && (rr < extrOuterRad*extrOuterRad) )
+        arr(i, j, k) = extrVoltage;
+        %end
         
     end
 end
