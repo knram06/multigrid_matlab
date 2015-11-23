@@ -20,8 +20,8 @@ while(norm > cmpNorm)
 end
 toc;
 
-errNorm = compare_and_get_norm(u, h);
-fprintf('Error norm: %g\n', errNorm);
+%errNorm = compare_and_get_norm(u, h);
+%fprintf('Error norm: %g\n', errNorm);
 
 end
 
