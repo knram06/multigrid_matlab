@@ -53,7 +53,7 @@ for count=1:gsIterNum
                 elseif( j == yLen-1)
                     u(i, yLen, k) = u(i, yLen-1, k);
                 end
-                
+
                 % if on Z=0 or END faces
                 if( k == 2)
                     u(i, j, 1) = u(i, j, 2);
@@ -65,6 +65,9 @@ for count=1:gsIterNum
         end
     end
 end % end of smoother count loop
+
+% smooth edge values
+u = smooth_edge_values(u);
 
 end
 

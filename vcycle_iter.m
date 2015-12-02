@@ -54,8 +54,8 @@ toc;
 
 res = u{numLevels};
 
-errNorm = compare_and_get_norm(res, h);
-fprintf('Error norm: %g\n', errNorm);
+%errNorm = compare_and_get_norm(res, h);
+%fprintf('Error norm: %g\n', errNorm);
 
 end
 
