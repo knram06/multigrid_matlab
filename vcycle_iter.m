@@ -32,6 +32,9 @@ A = constructCoarseMatrix(coarseGridPoints, hc);
 % RELATIVE convergence criteria
 toler = 1e-8;
 [~,initNorm] = calc_residual(u{numLevels}, d{numLevels}, h);
+%edgesNorm = residual_edges(u{numLevels});
+
+%initNorm = sqrt(initNorm*initNorm + edgesNorm*edgesNorm);
 cmpNorm = initNorm*toler;
 
 norm = initNorm;

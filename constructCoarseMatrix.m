@@ -74,11 +74,12 @@ for k=1:N
                     end
 
                     % hacky way to adjust for corner coeffs
-                    if(selfCount ~= 0)
-                        mat(pos, pos) = selfCount;
-                    else
-                        mat(pos, pos) = 1;
-                    end
+                    %if(selfCount ~= 0)
+                    % selfCount is guaranteed to not be zero right?
+                    mat(pos, pos) = selfCount;
+                    %else
+                    %    mat(pos, pos) = 1;
+                    %end
                 end
                 
             else
