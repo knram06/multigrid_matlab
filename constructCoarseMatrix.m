@@ -25,8 +25,8 @@ for k=1:N
             
             pos = nnk + nj + i;
             if(i == 1 || i == N || j == 1 || j == N || k == 1 || k == N)
-                if(i==1 || i==N)
-                    mat(pos, pos) = 1;
+                if(i == N)
+                    mat(pos, pos-1) = -1;
 %                     tz = (k-1)*h - center(2);
 %                     ty = (j-1)*h - center(1);
 %                     rr = ty*ty + tz*tz;
@@ -53,35 +53,36 @@ for k=1:N
 
                 %end % end of if i==1 or N
 
-                else
-                    % if j==0 or END
-                    selfCount = 0;
-                    if(j == 1)
-                        mat(pos, pos+N) = -1;
-                        selfCount = selfCount + 1;
-                    elseif (j == N)
-                        mat(pos, pos-N) = -1;
-                        selfCount = selfCount + 1;
-                    end
-
-                    % if k==0 or END
-                    if(k == 1)
-                        mat(pos, pos+NN) = -1;
-                        selfCount = selfCount + 1;
-                    elseif(k == N)
-                        mat(pos, pos-NN) = -1;
-                        selfCount = selfCount + 1;
-                    end
-
-                    % hacky way to adjust for corner coeffs
-                    %if(selfCount ~= 0)
-                    % selfCount is guaranteed to not be zero right?
-                    mat(pos, pos) = selfCount;
-                    %else
-                    %    mat(pos, pos) = 1;
-                    %end
+%                else
+%                     % if j==0 or END
+%                     selfCount = 0;
+%                     if(j == 1)
+%                         mat(pos, pos+N) = -1;
+%                         selfCount = selfCount + 1;
+%                     elseif (j == N)
+%                         mat(pos, pos-N) = -1;
+%                         selfCount = selfCount + 1;
+%                     end
+% 
+%                     % if k==0 or END
+%                     if(k == 1)
+%                         mat(pos, pos+NN) = -1;
+%                         selfCount = selfCount + 1;
+%                     elseif(k == N)
+%                         mat(pos, pos-NN) = -1;
+%                         selfCount = selfCount + 1;
+%                     end
+% 
+%                     % hacky way to adjust for corner coeffs
+%                     %if(selfCount ~= 0)
+%                     % selfCount is guaranteed to not be zero right?
+%                     mat(pos, pos) = selfCount;
+%                     %else
+%                     %    mat(pos, pos) = 1;
+%                     %end
                 end
-                
+                mat(pos, pos) = 1;
+            % if on interior points 
             else
                 mat(pos, pos-NN) = oneCoeff; mat(pos, pos+NN) = oneCoeff;
                 mat(pos, pos-N)  = oneCoeff; mat(pos, pos+N)  = oneCoeff;

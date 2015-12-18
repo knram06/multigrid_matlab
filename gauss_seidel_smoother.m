@@ -47,20 +47,24 @@ for count=1:gsIterNum
 % 
 %                 end
                 
-                % if on Y=0 or END faces
-                if( j == 2 )
-                    u(i, 1, k) = u(i, 2, k);
-                elseif( j == yLen-1)
-                    u(i, yLen, k) = u(i, yLen-1, k);
-                end
+%                 % if on Y=0 or END faces
+%                 if( j == 2 )
+%                     u(i, 1, k) = u(i, 2, k);
+%                 elseif( j == yLen-1)
+%                     u(i, yLen, k) = u(i, yLen-1, k);
+%                 end
+% 
+%                 % if on Z=0 or END faces
+%                 if( k == 2)
+%                     u(i, j, 1) = u(i, j, 2);
+%                 elseif( k == zLen-1 )
+%                     u(i, j, zLen) = u(i, j, zLen-1);
+%                 end
 
-                % if on Z=0 or END faces
-                if( k == 2)
-                    u(i, j, 1) = u(i, j, 2);
-                elseif( k == zLen-1 )
-                    u(i, j, zLen) = u(i, j, zLen-1);
-                end
-                
+                 if( i==xLen-1 )
+                     u(xLen, j, k) = u(i, j, k);
+                 end
+
             end % end of i loop
         end
     end

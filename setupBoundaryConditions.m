@@ -26,19 +26,19 @@ for k=1:K
 end
 
 % set on X=(END) face
-i = I;
-for k=1:K
-    tz = h*(k-1)-center(2);
-    for j=1:J
-        ty = h*(j-1)-center(1);
-        rr = ty*ty + tz*tz;
-        
-        %if((rr > extrInnerRad*extrInnerRad) && (rr < extrOuterRad*extrOuterRad) )
-        arr(i, j, k) = extrVoltage;
-        %end
-        
-    end
-end
+% i = I;
+% for k=1:K
+%     tz = h*(k-1)-center(2);
+%     for j=1:J
+%         ty = h*(j-1)-center(1);
+%         rr = ty*ty + tz*tz;
+%         
+%         %if((rr > extrInnerRad*extrInnerRad) && (rr < extrOuterRad*extrOuterRad) )
+%         arr(i, j, k) = extrVoltage;
+%         %end
+%         
+%     end
+% end
 
 
 % % apply bc on X-Faces, 1 and N-1

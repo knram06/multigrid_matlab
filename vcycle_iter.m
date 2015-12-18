@@ -7,7 +7,7 @@ extrInnerRad = 1e-4;
 global extrOuterRad;
 extrOuterRad = 1.4e-4;
 global capVoltage;
-capVoltage = 0;
+capVoltage = 10;
 global extrVoltage;
 extrVoltage = -1350;
 global center;
