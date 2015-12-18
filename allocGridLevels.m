@@ -4,8 +4,8 @@ ret = cell(numLevels, 1);
 for i=1:numLevels
     numPoints = ((coarseGridPoints-1)*pow2(i-1))+1;
     
-    % 3d points total - cubed
-    ret{i} = zeros(numPoints, numPoints, numPoints);
+    % 2d points total - squared
+    ret{i} = zeros(numPoints, numPoints);
 end
 
 end
