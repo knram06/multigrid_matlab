@@ -8,7 +8,7 @@ global center;
 center = [length/2, length/2];
 
 h = length/(numPoints-1);
-d = zeros(numPoints, numPoints, numPoints);
+d = zeros(numPoints, numPoints);
 N = numPoints;
 A = constructCoarseMatrix(N, h);
 [L,U] = lu(A);
@@ -18,13 +18,13 @@ d=setupBoundaryConditions(d, h);
 % let midpoint of X-Face end be extractor voltage
 %d(3, 2, 2) = -1350;
 
-b = reshape(d, [N*N*N, 1]);
+b = reshape(d, [N*N, 1]);
     
 x = U\(L\b);
 
 % the x obtained will be a 1D-vector
 % reshape into relevant matrix form
-u = reshape(x, [N, N, N]);
+u = reshape(x, [N, N]);
     
 %solnVec = xLevels{level};
 %residualVec = bLevels{level};
