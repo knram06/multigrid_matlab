@@ -5,107 +5,60 @@ function ef = prolong_correct_error(ec, ef)
 
 for j = 1:JF
     for i = 1:IF
-        
         % changes from C code due to 1-indexing
-        isOnCoarseEdge = [rem(i,2), rem(j,2), rem(k,2)];
+        isOnCoarseEdge = [rem(i,2), rem(j,2)];
         val = sum(isOnCoarseEdge);
         
         retVal = 0;
         % the fine grid point is NOT on any of
-        % the coarse edges - so take the 8 neighbours
+        % the coarse edges - so take the 4 neighbours
         % and average the value
         if(val == 0)
-            lowCoarseCorner = [i/2, j/2, k/2];
+            lowCoarseCorner = [i/2, j/2];
             
             relevantCorners = [
-                [lowCoarseCorner(1),   lowCoarseCorner(2),   lowCoarseCorner(3)];
-                [lowCoarseCorner(1),   lowCoarseCorner(2),   lowCoarseCorner(3)+1];
-                [lowCoarseCorner(1),   lowCoarseCorner(2)+1, lowCoarseCorner(3)];
-                [lowCoarseCorner(1),   lowCoarseCorner(2)+1, lowCoarseCorner(3)+1];
-                
-                [lowCoarseCorner(1)+1, lowCoarseCorner(2),   lowCoarseCorner(3)];
-                [lowCoarseCorner(1)+1, lowCoarseCorner(2),   lowCoarseCorner(3)+1];
-                [lowCoarseCorner(1)+1, lowCoarseCorner(2)+1, lowCoarseCorner(3)];
-                [lowCoarseCorner(1)+1, lowCoarseCorner(2)+1, lowCoarseCorner(3)+1];
+                [lowCoarseCorner(1),   lowCoarseCorner(2)];
+                [lowCoarseCorner(1)+1, lowCoarseCorner(2)];
+                [lowCoarseCorner(1),   lowCoarseCorner(2)+1];
+                [lowCoarseCorner(1)+1, lowCoarseCorner(2)+1];
                 ];
             
-            for c=1:8
-                retVal = retVal + ec(relevantCorners(c,1), relevantCorners(c,2), relevantCorners(c,3));
+            for c=1:4
+                retVal = retVal + ec(relevantCorners(c,1), relevantCorners(c,2));
             end
-            retVal = retVal/8;
+            retVal = retVal*0.25;
             
         elseif (val == 1)
-            coarseFaceCorners = zeros(4,3);
+            coarseFaceCorners = zeros(2,2);
             
             % if on X Coarse face
             if (isOnCoarseEdge(1) == 1)
-                lowCornerFace = [(i+1)/2, j/2, k/2];
-                
+                lowCornerFace = [(i+1)/2, j/2];
+
                 coarseFaceCorners(1,:) = lowCornerFace;
-                coarseFaceCorners(2,:) = [lowCornerFace(1), lowCornerFace(2)+1, lowCornerFace(3)];
-                coarseFaceCorners(3,:) = [lowCornerFace(1), lowCornerFace(2),   lowCornerFace(3)+1];
-                coarseFaceCorners(4,:) = [lowCornerFace(1), lowCornerFace(2)+1, lowCornerFace(3)+1];
+                coarseFaceCorners(2,:) = [lowCornerFace(1),   lowCornerFace(2)+1];
                 
-                % if on Y Face
-            elseif (isOnCoarseEdge(2) == 1)
-                lowCornerFace = [i/2, (j+1)/2, k/2];
-                
-                coarseFaceCorners(1,:) = lowCornerFace;
-                coarseFaceCorners(2,:) = [lowCornerFace(1)+1, lowCornerFace(2), lowCornerFace(3)];
-                coarseFaceCorners(3,:) = [lowCornerFace(1),   lowCornerFace(2), lowCornerFace(3)+1];
-                coarseFaceCorners(4,:) = [lowCornerFace(1)+1, lowCornerFace(2), lowCornerFace(3)+1];
-                
-                % if on Z Face
+            % if on Y Face
             else
-                lowCornerFace = [i/2, j/2, (k+1)/2];
-                
+                lowCornerFace = [i/2, (j+1)/2];
+
                 coarseFaceCorners(1,:) = lowCornerFace;
-                coarseFaceCorners(2,:) = [lowCornerFace(1),   lowCornerFace(2)+1, lowCornerFace(3)];
-                coarseFaceCorners(3,:) = [lowCornerFace(1)+1, lowCornerFace(2),   lowCornerFace(3)];
-                coarseFaceCorners(4,:) = [lowCornerFace(1)+1, lowCornerFace(2)+1, lowCornerFace(3)];
-            end
-            
-            for c=1:4
-                retVal = retVal + ec(coarseFaceCorners(c,1), coarseFaceCorners(c,2), coarseFaceCorners(c,3));
-            end
-            
-            retVal = retVal * 0.25;
-            
-        elseif (val == 2)
-            coarseEdgeCorners = zeros(2, 3);
-            
-            if (isOnCoarseEdge(1) == 0)
-                lowCornerEdge = [i/2, (j+1)/2, (k+1)/2];
-                
-                coarseEdgeCorners(1,:) = [lowCornerEdge(1),   lowCornerEdge(2), lowCornerEdge(3)];
-                coarseEdgeCorners(2,:) = [lowCornerEdge(1)+1, lowCornerEdge(2), lowCornerEdge(3)];
-                
-            elseif (isOnCoarseEdge(2) == 0)
-                lowCornerEdge = [(i+1)/2, j/2, (k+1)/2];
-                
-                coarseEdgeCorners(1,:) = [lowCornerEdge(1),   lowCornerEdge(2),   lowCornerEdge(3)];
-                coarseEdgeCorners(2,:) = [lowCornerEdge(1),   lowCornerEdge(2)+1, lowCornerEdge(3)];
-                
-            elseif(isOnCoarseEdge(3) == 0)
-                lowCornerEdge = [(i+1)/2, (j+1)/2, k/2];
-                
-                coarseEdgeCorners(1,:) = [lowCornerEdge(1), lowCornerEdge(2), lowCornerEdge(3)];
-                coarseEdgeCorners(2,:) = [lowCornerEdge(1), lowCornerEdge(2), lowCornerEdge(3)+1];
+                coarseFaceCorners(2,:) = [lowCornerFace(1)+1, lowCornerFace(2)];
             end
             
             for c=1:2
-                retVal = retVal + ec(coarseEdgeCorners(c,1), coarseEdgeCorners(c,2), coarseEdgeCorners(c,3));
+                retVal = retVal + ec(coarseFaceCorners(c,1), coarseFaceCorners(c,2));
             end
             
-            retVal = retVal * 0.5;
-            
+            retVal = retVal*0.5;
+
+        % coincides with coarse grid point
         else
-            ic = (i+1)/2; jc = (j+1)/2; kc = (k+1)/2;
-            retVal = ec(ic, jc,kc);
-            % end of if checks for val
-        end
+            ic = (i+1)/2; jc = (j+1)/2;
+            retVal = ec(ic, jc);
+        end % end of if checks for val
         
-        ef(i, j, k) = ef(i, j, k) + retVal;
+        ef(i, j) = ef(i, j) + retVal;
     end
 end
 
