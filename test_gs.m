@@ -9,8 +9,8 @@ global center;
 center = [length/2, length/2];
 
 h = length/(numPoints-1);
-u = zeros(numPoints, numPoints, numPoints);
-d = zeros(numPoints, numPoints, numPoints);
+u = zeros(numPoints, numPoints);
+d = zeros(numPoints, numPoints);
 
 u=setupBoundaryConditions(u, h);
 [~, norm]=calc_residual(u, d, h);

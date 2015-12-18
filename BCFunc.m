@@ -1,4 +1,4 @@
-function val = BCFunc(x, y, z)
-val = x*x - 2*y*y + z*z;
+function val = BCFunc(x, y)
+val = x*x - y*y;
 %val = 10;
 end
