@@ -15,6 +15,9 @@ invMultFactor=1/4;
 % MATLAB stores in column major
 % so change across k indices first!!
 
+% DID NOT WORK: TEST: try zeroing out Neumann nodes and see if that helps
+%u = zero_out_neumann(u);
+
 for count=1:gsIterNum
     for j=2:yLen-1
         for i=2:xLen-1
