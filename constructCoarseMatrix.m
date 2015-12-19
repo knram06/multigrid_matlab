@@ -32,7 +32,7 @@ for k=1:N
                     rr = ty*ty + tz*tz;
                     
                     if( i==1 )
-                        if(rr >= capRadius*capRadius)
+                        if(rr > capRadius*capRadius)
                             mat(pos, pos+1) = -1;
                             selfCount = selfCount + 1;
                         % impose Dirichlet diag value although it shouldn't
@@ -53,7 +53,7 @@ for k=1:N
 
                 end % end of if i==1 or N
                 
-                % if j==0 or END
+                % if j==1 or END
                 if(j == 1)
                     mat(pos, pos+N) = -1;
                     selfCount = selfCount + 1;
