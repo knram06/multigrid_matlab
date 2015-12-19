@@ -21,7 +21,7 @@ for j=1:N
         pos = nj + i;
         if(i == 1 || i == N || j == 1 || j == N)
             mat(pos, pos) = 1;
-            %if(i==1 || i==N)
+            if(i==1 || i==N)
                 %                     tz = (k-1)*h - center(2);
                 %                     ty = (j-1)*h - center(1);
                 %                     rr = ty*ty + tz*tz;
@@ -48,14 +48,14 @@ for j=1:N
                 
                 %end % end of if i==1 or N
                 
-%             else
-%                 % if j==0 or END
-%                 if(j == 1)
-%                     mat(pos, pos+N) = -1;
-%                 elseif (j == N)
-%                     mat(pos, pos-N) = -1;
-%                 end
-%             end
+            else
+                % if j==0 or END
+                if(j == 1)
+                    mat(pos, pos+N) = -1;
+                elseif (j == N)
+                    mat(pos, pos-N) = -1;
+                end
+            end
             
         else
             mat(pos, pos-N)  = oneCoeff; mat(pos, pos+N)  = oneCoeff;

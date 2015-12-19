@@ -46,11 +46,11 @@ for count=1:gsIterNum
             %                 end
             
             % if on Y=0 or END faces
-%             if( j == 2 )
-%                 u(i, 1) = u(i, 2);
-%             elseif( j == yLen-1)
-%                 u(i, yLen) = u(i, yLen-1);
-%             end
+            if( j == 2 )
+                u(i, 1) = u(i, 2);
+            elseif( j == yLen-1)
+                u(i, yLen) = u(i, yLen-1);
+            end
             
         end % end of i loop
     end
