@@ -1,14 +1,14 @@
 function res = vcycle_iter(length, coarseGridPoints, numLevels, gsIterNum, useFMG)
 
 global capRadius;
-%capRadius = 1.326e-5;
-capRadius = 0.044;
+capRadius = 1.326e-5;
+%capRadius = 0.044;
 global extrInnerRad;
-%extrInnerRad = 1e-4;
-extrInnerRad = 0.333;
+extrInnerRad = 1e-4;
+%extrInnerRad = 0.333;
 global extrOuterRad;
-%extrOuterRad = 1.4e-4;
-extrOuterRad = 0.4666;
+extrOuterRad = 1.4e-4;
+%extrOuterRad = 0.4666;
 global capVoltage;
 capVoltage = 0;
 global extrVoltage;
