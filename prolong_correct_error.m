@@ -3,9 +3,9 @@ function ef = prolong_correct_error(ec, ef)
 % prolongates and corrects error
 [IF, JF, KF] = size(ef);
 
-for k = 1:KF
-    for j = 1:JF
-        for i = 1:IF
+for k = 2:KF-1
+    for j = 2:JF-1
+        for i = 2:IF-1
             
             % changes from C code due to 1-indexing
             isOnCoarseEdge = [rem(i,2), rem(j,2), rem(k,2)];

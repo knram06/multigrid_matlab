@@ -66,5 +66,6 @@ for count=1:gsIterNum
     end
 end % end of smoother count loop
 
+u = smooth_edge_values(u);
 end
 
