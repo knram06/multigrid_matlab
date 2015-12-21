@@ -5,7 +5,7 @@ function u = gauss_seidel_smoother(u, d, h, gsIterNum)
 
 global beta;
 
-[xLen] = size(u);
+[xLen, ~] = size(u);
 hSq = h*h;
 invMultFactor=1/2;
 
@@ -21,7 +21,7 @@ for count=1:gsIterNum
     end % end of i loop
     
     % enforce the end point Neumann
-    u(xLen) = beta*h + u(xLen-1);
+    %u(xLen) = beta*h + u(xLen-1);
     
 end % end of smoother count loop
 

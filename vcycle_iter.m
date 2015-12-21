@@ -3,7 +3,7 @@ function res = vcycle_iter(length, coarseGridPoints, numLevels, gsIterNum, useFM
 global alpha
 alpha = 1;
 global beta
-beta = 0.5;
+beta = 2;
 
 finestGridPoints = ((coarseGridPoints-1)*pow2(numLevels-1)) + 1;
 h = length/(finestGridPoints-1);      % finest level spacing

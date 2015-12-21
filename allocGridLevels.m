@@ -5,7 +5,7 @@ for i=1:numLevels
     numPoints = ((coarseGridPoints-1)*pow2(i-1))+1;
     
     % 1d points total - squared
-    ret{i} = zeros(numPoints);
+    ret{i} = zeros(numPoints, 1);
 end
 
 end

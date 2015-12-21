@@ -1,7 +1,7 @@
 function ef = prolong_correct_error(ec, ef)
 
 % prolongates and corrects error
-[IF] = size(ef);
+[IF, ~] = size(ef);
 
 for i = 2:IF-1
     % changes from C code due to 1-indexing

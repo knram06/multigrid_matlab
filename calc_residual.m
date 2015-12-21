@@ -2,7 +2,7 @@ function [residual, l2norm] = calc_residual(u, d, h)
 %calc_residual calculates residual (d-Au) given d, u
 % A is implicit in matrix free form
 
-[xLen] = size(u);
+[xLen, ~] = size(u);
 hSq = h*h;
 
 residual = zeros(xLen);
