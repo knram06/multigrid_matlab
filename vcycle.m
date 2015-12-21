@@ -7,14 +7,7 @@ end
 
 % base case recursion
 if (level == 1)
-    [N, ~, ~] = size(bLevels{level});
-    b = reshape(bLevels{level}, [N*N, 1]);
-    
-    x = U\(L\b);
-    
-    % the x obtained will be a 1D-vector
-    % reshape into relevant matrix form
-    xLevels{level} = reshape(x, [N, N]);
+    xLevels{level} = U\(L\bLevels{level});
     
     %solnVec = xLevels{level};
     %residualVec = bLevels{level};

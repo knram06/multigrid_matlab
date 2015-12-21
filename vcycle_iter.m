@@ -1,17 +1,9 @@
 function res = vcycle_iter(length, coarseGridPoints, numLevels, gsIterNum, useFMG)
 
-global capRadius;
-capRadius = 1.326e-5;
-global extrInnerRad;
-extrInnerRad = 1e-4;
-global extrOuterRad;
-extrOuterRad = 1.4e-4;
-global capVoltage;
-capVoltage = 0;
-global extrVoltage;
-extrVoltage = -1350;
-global center;
-center = [length/2, length/2];
+global alpha
+alpha = 1;
+global beta
+beta = 0.5;
 
 finestGridPoints = ((coarseGridPoints-1)*pow2(numLevels-1)) + 1;
 h = length/(finestGridPoints-1);      % finest level spacing
