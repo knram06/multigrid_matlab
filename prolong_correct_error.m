@@ -3,8 +3,8 @@ function ef = prolong_correct_error(ec, ef)
 % prolongates and corrects error
 [IF, JF] = size(ef);
 
-for j = 1:JF
-    for i = 1:IF
+for j = 2:JF-1
+    for i = 2:IF-1
         % changes from C code due to 1-indexing
         isOnCoarseEdge = [rem(i,2), rem(j,2)];
         val = sum(isOnCoarseEdge);
