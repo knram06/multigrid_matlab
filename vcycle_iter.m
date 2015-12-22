@@ -3,27 +3,33 @@ function res = vcycle_iter(length, coarseGridPoints, numLevels, gsIterNum, useFM
 global alpha
 alpha = 1;
 global beta
-beta = 0;
+beta = 2;
 
-finestGridPoints = ((coarseGridPoints-1)*pow2(numLevels-1)) + 1;
-h = length/(finestGridPoints-1);      % finest level spacing
-hc = length/(coarseGridPoints-1);     % coarse level spacing
+for i=1:numLevels
+    levelData(i).level = i;
+    N                  = ((coarseGridPoints-1)*pow2(i-1)) + 1;
+    h                  = length/(N-1);
+    levelData(i).N     = N;
+    levelData(i).h     = h;
+    
+    A                  = constructMatrix(N, h);
+    [L,U]              = lu(A);
+    levelData(i).A     = A;
+    levelData(i).L     = tril(A, 0);  % referring Rajesh Gandham's code
+    levelData(i).U     = triu(A, 1);  % referring Rajesh Gandham's code
+    
+    % soln and rhs vectors
+    levelData(i).x     = zeros(N, 1);
+    levelData(i).b     = zeros(N, 1);
+end
 
-% preallocate the grid level data
-u = allocGridLevels(coarseGridPoints, numLevels);
-d = allocGridLevels(coarseGridPoints, numLevels);
+levelData(numLevels).b = setupBoundaryConditions(levelData(numLevels).b, levelData(numLevels).h);
 
-% enforce some bcs here
-u{numLevels} = setupBoundaryConditions(u{numLevels}, h);
-
-% TODO: store and preallocate A matrix - Store its LU?
-A = constructCoarseMatrix(coarseGridPoints, hc);
-[L,U] = lu(A);
 
 % call the mg method
 % RELATIVE convergence criteria
 toler = 1e-8;
-[~,initNorm] = calc_residual(u{numLevels}, d{numLevels}, h);
+[~,initNorm] = calc_residual(levelData(numLevels).A, levelData(numLevels).x, levelData(numLevels).b);
 %edgesNorm = residual_edges(u{numLevels});
 
 %initNorm = sqrt(initNorm*initNorm + edgesNorm*edgesNorm);
@@ -40,14 +46,14 @@ fprintf('%-10s %10s %10s\n', 'Iter', 'Norm', 'ResidRednRatio');
 tic;
 while(norm >= cmpNorm)
     oldNorm = norm;
-    [u, norm] = vcycle(u, d, numLevels, numLevels, h, gsIterNum, L, U);
+    [levelData, norm] = vcycle(levelData, numLevels, numLevels, gsIterNum);
     residRatio = norm/oldNorm;
     fprintf('%-10d %10.9g %10.9g\n', iterCount, norm, residRatio);
     iterCount = iterCount + 1;
 end
 toc;
 
-res = u{numLevels};
+res = levelData(numLevels).x;
 
 %errNorm = compare_and_get_norm(res, h);
 %fprintf('Error norm: %g\n', errNorm);

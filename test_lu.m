@@ -8,7 +8,7 @@ beta = 2;
 h = length/(numPoints-1);
 d = zeros(numPoints, 1);
 N = numPoints;
-A = constructCoarseMatrix(N, h);
+A = constructMatrix(N, h);
 [L,U] = lu(A);
 
 d=setupBoundaryConditions(d, h);
