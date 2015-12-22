@@ -1,31 +1,24 @@
 function [u, norm] = test_lu(length, numPoints)
 
-global capVoltage;
-capVoltage = 0;
-global extrVoltage;
-extrVoltage = -1350;
-global center;
-center = [length/2, length/2];
+global alpha;
+alpha = 1;
+global beta;
+beta = 2;
 
 h = length/(numPoints-1);
-d = zeros(numPoints, numPoints);
+d = zeros(numPoints, 1);
 N = numPoints;
 A = constructCoarseMatrix(N, h);
 [L,U] = lu(A);
 
 d=setupBoundaryConditions(d, h);
+d(end) = beta;
 
 % let midpoint of X-Face end be extractor voltage
 %d(3, 2, 2) = -1350;
-
-b = reshape(d, [N*N, 1]);
     
-x = U\(L\b);
+u = U\(L\d);
 
-% the x obtained will be a 1D-vector
-% reshape into relevant matrix form
-u = reshape(x, [N, N]);
-    
 %solnVec = xLevels{level};
 %residualVec = bLevels{level};
 [~, norm] = calc_residual(u, d, h);

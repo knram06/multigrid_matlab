@@ -3,7 +3,7 @@ function ef = prolong_correct_error(ec, ef)
 % prolongates and corrects error
 [IF, ~] = size(ef);
 
-for i = 2:IF-1
+for i = 1:IF
     % changes from C code due to 1-indexing
     isOnCoarseEdge = rem(i,2);
 

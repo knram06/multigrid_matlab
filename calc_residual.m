@@ -5,7 +5,7 @@ function [residual, l2norm] = calc_residual(u, d, h)
 [xLen, ~] = size(u);
 hSq = h*h;
 
-residual = zeros(xLen);
+residual = zeros(xLen, 1);
 l2norm = 0;
 
 % MATLAB stores in column major

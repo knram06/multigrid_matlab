@@ -1,5 +1,7 @@
 function [xLevels, norm] = vcycle(xLevels, bLevels, level, numLevels, spacing, gsIterNum, L, U)
 
+global beta;
+
 % reset lower level soln to zero
 if (level < numLevels)
     xLevels{level} = 0*xLevels{level};
@@ -7,6 +9,10 @@ end
 
 % base case recursion
 if (level == 1)
+    
+    % RHS fix for non-homogenous Neumann
+    %bLevels{level}(end) = beta;
+    
     xLevels{level} = U\(L\bLevels{level});
     
     %solnVec = xLevels{level};

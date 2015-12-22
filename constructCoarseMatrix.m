@@ -4,6 +4,7 @@ matDim = N;
 mat = zeros(matDim, matDim);
 
 hSq = h*h;
+invH = 1/h;
 invHsq = 1/hSq;
 
 % cache some coeffs
@@ -16,9 +17,10 @@ for i=1:N
         mat(pos, pos) = 1;
         
         % Neumann condition
-        %if(i == N)
-        %    mat(pos, pos-1) = -1;
-        %end 
+        if(i == N)
+           mat(pos, pos-1) = -invH;
+           mat(pos, pos)   =  invH;
+        end 
     else
         mat(pos, pos-1) = oneCoeff; mat(pos, pos+1)  = oneCoeff;
         mat(pos, pos) = -twoCoeff;

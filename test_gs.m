@@ -1,18 +1,20 @@
 function [u, norm] = test_gs(length, numPoints)
 % Function to test Gauss-Seidel smoother
 
-global capVoltage;
-capVoltage = 0;
-global extrVoltage;
-extrVoltage = -1350;
-global center;
-center = [length/2, length/2];
+global alpha;
+alpha = 1;
+global beta;
+beta = 2;
 
 h = length/(numPoints-1);
-u = zeros(numPoints, numPoints);
-d = zeros(numPoints, numPoints);
+u = zeros(numPoints, 1);
+d = zeros(numPoints, 1);
 
 u=setupBoundaryConditions(u, h);
+
+% enforce end point Neumann
+d(end) = beta;
+
 [~, norm]=calc_residual(u, d, h);
 toler=1e-10;
 cmpNorm = norm*toler;
