@@ -21,7 +21,7 @@ for count=1:gsIterNum
     end % end of i loop
     
     % enforce the end point Neumann
-    u(xLen) = beta*h + u(xLen-1);
+    u(xLen) = d(xLen)*h + u(xLen-1);
     
 end % end of smoother count loop
 

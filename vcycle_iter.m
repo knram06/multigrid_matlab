@@ -16,6 +16,9 @@ d = allocGridLevels(coarseGridPoints, numLevels);
 % enforce some bcs here
 u{numLevels} = setupBoundaryConditions(u{numLevels}, h);
 
+% enforce end point Neumann
+d{numLevels}(end) = beta;
+
 % TODO: store and preallocate A matrix - Store its LU?
 A = constructCoarseMatrix(coarseGridPoints, hc);
 [L,U] = lu(A);
