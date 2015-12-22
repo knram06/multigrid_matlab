@@ -17,10 +17,10 @@ for i=1:N
         mat(pos, pos) = 1;
         
         % Neumann condition
-        %if(i == N)
-        %   mat(pos, pos-1) = -invH;
-        %   mat(pos, pos)   =  invH;
-        %end 
+        if(i == N)
+           mat(pos, pos-1) = -invH;
+           mat(pos, pos)   =  invH;
+        end 
     else
         mat(pos, pos-1) = oneCoeff; mat(pos, pos+1)  = oneCoeff;
         mat(pos, pos) = -twoCoeff;
