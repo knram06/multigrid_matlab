@@ -6,7 +6,16 @@ nodalWeights(1,:) = [0.0625, 0.125, 0.0625];
 nodalWeights(2,:) = [0.125,  0.25,  0.125];
 nodalWeights(3,:) = [0.0625, 0.125, 0.0625];
 
-[xLenC, yLenC] = size(d);
+[NN, ~] = size(d);
+Nc = sqrt(NN);
+
+[NN, ~] = size(r);
+Nf = sqrt(NN);
+
+% reshape for convenience
+%d = reshape(d, [Nd, Nd]);
+%r = reshape(r, [N, N]);
+
 %[xLenF, yLenF, zLenF] = size(r);
 
 % TODO: not copying over boundary faces as they should be zero
@@ -14,8 +23,8 @@ nodalWeights(3,:) = [0.0625, 0.125, 0.0625];
 % or just use MATLAB vector syntax for this?
 %d(1, :, :) = r(1, 
 
-for jc=2:yLenC-1
-    for ic=2:xLenC-1
+for jc=2:Nc-1
+    for ic=2:Nc-1
         
         % we are effectively on the fine grid at coord
         % (2*ic-1, 2*jc-1, 2*kc-1)
@@ -29,13 +38,16 @@ for jc=2:yLenC-1
         for jStep = 0:2
             for iStep = 0:2
                 val = val + ...
-                    (r(i+iStep, j + jStep) * ...
+                    (r((j + jStep-1)*Nf + (i+iStep)) * ...
                     nodalWeights(iStep+1, jStep+1) );
             end
         end % end of cube centered around fine grid cube with origin
         
-        d(ic, jc) = val;
+        d((jc-1)*Nc + ic) = val;
     end
 end
+
+% reshape back to 1D vector
+%d = reshape(d, [N*N, 1]);
 
 end

@@ -22,9 +22,8 @@ for i=1:numLevels
     levelData(i).U     = triu(A, 1);  % referring Rajesh Gandham's code
     
     % soln and rhs vectors
-    matDim             = N*N;
-    levelData(i).x     = zeros(matDim); % generates matDim*matDim matrix
-    levelData(i).b     = zeros(N);
+    levelData(i).x     = zeros(N*N, 1);
+    levelData(i).b     = zeros(N*N, 1);
 end
 
 levelData(numLevels).b = setupBoundaryConditions(levelData(numLevels).b, levelData(numLevels).h);

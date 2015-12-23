@@ -13,10 +13,10 @@ if (level == 1)
     %bLevels{level}(end) = beta;
     A = levelData(level).A;
     N = levelData(level).N;
-    b = reshape(levelData(level).b, [N*N, 1]);
+    %b = reshape(levelData(level).b, [N*N, 1]);
     
-    x = A\b;
-    levelData(level).x = reshape(x, [N, N]);
+    %x = A\b;
+    levelData(level).x = A\levelData(level).b;
     
     %solnVec = xLevels{level};
     %residualVec = bLevels{level};

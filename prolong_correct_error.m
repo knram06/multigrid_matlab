@@ -1,10 +1,20 @@
 function ef = prolong_correct_error(ec, ef)
 
-% prolongates and corrects error
-[IF, JF] = size(ef);
+[NNc, ~] = size(ec);
+Nc = sqrt(NNc);
 
-for j = 1:JF
-    for i = 1:IF
+[NNf, ~] = size(ef);
+Nf = sqrt(NNf);
+
+% temporary reshape for convenience?
+ec = reshape(ec, [Nc, Nc]);
+ef = reshape(ef, [Nf, Nf]);
+
+% prolongates and corrects error
+%[IF, JF] = size(ef);
+
+for j = 1:Nf
+    for i = 1:Nf
         % changes from C code due to 1-indexing
         isOnCoarseEdge = [rem(i,2), rem(j,2)];
         val = sum(isOnCoarseEdge);
@@ -61,6 +71,9 @@ for j = 1:JF
         ef(i, j) = ef(i, j) + retVal;
     end
 end
+
+% reshape back to 1D
+ef = reshape(ef, [Nf*Nf, 1]);
 
 end
 

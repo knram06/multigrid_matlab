@@ -1,6 +1,7 @@
 function arr = setupBoundaryConditions(arr, h)
 
-[I, J] = size(arr);
+[NN, ~] = size(arr);
+N = sqrt(NN);
 
 % global capRadius;
 % global extrInnerRad;
@@ -14,13 +15,14 @@ extrVoltage = -1350;
 
 arr = 0*arr;
 % set on X=0 face
-for j=1:J
+for j=1:N
+    nj = (j-1)*N;
     %ty = h*(j-1)-center(1);
     %rr = ty*ty + tz*tz;
     
     %if(rr <= capRadius*capRadius)
-    arr(1, j) = capVoltage;
-    arr(I, j) = extrVoltage;
+    arr(nj+1) = capVoltage;
+    arr(nj+N) = extrVoltage;
     %end
 end
 
