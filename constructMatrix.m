@@ -33,7 +33,8 @@ for j=1:N
 %                 end
 %             end
         else
-            mat(pos, pos-1) = oneCoeff; mat(pos, pos+1)  = oneCoeff;
+            mat(pos, pos-1) = oneCoeff; mat(pos, pos+1) = oneCoeff;
+            mat(pos, pos-N) = oneCoeff; mat(pos, pos+N) = oneCoeff;
             mat(pos, pos)   = -fourCoeff;
         end
     end
