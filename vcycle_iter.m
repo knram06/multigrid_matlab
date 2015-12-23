@@ -1,9 +1,9 @@
 function res = vcycle_iter(length, coarseGridPoints, numLevels, gsIterNum, useFMG)
 
-global alpha
-alpha = 1;
-global beta
-beta = 0;
+% global alpha
+% alpha = 1;
+% global beta
+% beta = 0;
 
 % preallocate structure?
 levelData(numLevels).level = numLevels;
@@ -24,7 +24,7 @@ for i=1:numLevels
     % soln and rhs vectors
     matDim             = N*N;
     levelData(i).x     = zeros(matDim); % generates matDim*matDim matrix
-    levelData(i).b     = zeros(matDim);
+    levelData(i).b     = zeros(N);
 end
 
 levelData(numLevels).b = setupBoundaryConditions(levelData(numLevels).b, levelData(numLevels).h);
@@ -37,7 +37,7 @@ toler = 1e-8;
 
 % enforce the Neumann after the residual calculation - so that it
 % doesn't affect the initial residual calculation - HACK or legitimate?
-levelData(numLevels).b(end) = beta;
+%levelData(numLevels).b(end) = beta;
 
 %initNorm = sqrt(initNorm*initNorm + edgesNorm*edgesNorm);
 cmpNorm = initNorm*toler;
