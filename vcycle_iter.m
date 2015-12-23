@@ -5,6 +5,9 @@ alpha = 1;
 global beta
 beta = 2;
 
+% preallocate structure?
+levelData(numLevels).level = numLevels;
+
 for i=1:numLevels
     levelData(i).level = i;
     N                  = ((coarseGridPoints-1)*pow2(i-1)) + 1;
