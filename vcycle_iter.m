@@ -22,8 +22,8 @@ for i=1:numLevels
     levelData(i).U     = triu(A, 1);  % referring Rajesh Gandham's code
     
     % soln and rhs vectors
-    levelData(i).x     = zeros(N*N, 1);
-    levelData(i).b     = zeros(N*N, 1);
+    levelData(i).x     = zeros(N*N*N, 1);
+    levelData(i).b     = zeros(N*N*N, 1);
 end
 
 levelData(numLevels).b = setupBoundaryConditions(levelData(numLevels).b, levelData(numLevels).h);
