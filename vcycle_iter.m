@@ -3,7 +3,7 @@ function res = vcycle_iter(length, coarseGridPoints, numLevels, gsIterNum, useFM
 global alpha
 alpha = 1;
 global beta
-beta = 2;
+beta = 0;
 
 % preallocate structure?
 levelData(numLevels).level = numLevels;
@@ -28,12 +28,15 @@ end
 
 levelData(numLevels).b = setupBoundaryConditions(levelData(numLevels).b, levelData(numLevels).h);
 
-
 % call the mg method
 % RELATIVE convergence criteria
 toler = 1e-8;
 [~,initNorm] = calc_residual(levelData(numLevels).A, levelData(numLevels).x, levelData(numLevels).b);
 %edgesNorm = residual_edges(u{numLevels});
+
+% enforce the Neumann after the residual calculation - so that it
+% doesn't affect the initial residual calculation - HACK or legitimate?
+levelData(numLevels).b(end) = beta;
 
 %initNorm = sqrt(initNorm*initNorm + edgesNorm*edgesNorm);
 cmpNorm = initNorm*toler;
