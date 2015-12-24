@@ -1,54 +1,31 @@
 function arr = setupBoundaryConditions(arr, h)
 
-[NN, ~] = size(arr);
-N = sqrt(NN);
+[NNN, ~] = size(arr);
 
-% global capRadius;
-% global extrInnerRad;
-% global extrOuterRad;
-% global capVoltage;
-%capVoltage = 0;
-% global extrVoltage;
-%extrVoltage = -1350;
-% %global center;
+N = NNN^(1/3);
 
-
-arr = 0*arr;
-% %set on X=0 face
-% for j=1:N
-%     nj = (j-1)*N;
-%     %ty = h*(j-1)-center(1);
-%     %rr = ty*ty + tz*tz;
-%     
-%     %if(rr <= capRadius*capRadius)
-%     arr(nj+1) = capVoltage;
-%     arr(nj+N) = extrVoltage;
-%     %end
-% end
-
-% for i=2:I-1
-%     %ty = h*(j-1)-center(1);
-%     %rr = ty*ty + tz*tz;
-%     
-%     %if(rr <= capRadius*capRadius)
-%     arr(i, 1) = BCFunc((i-1)*h, 0);
-%     arr(i, J) = BCFunc((i-1)*h, (J-1)*h);
-%     %end
-% end
-
-% enforce a BCFunc on the boudaries
-for j=1:N
-    nj = (j-1)*N;
-    arr(nj+1) = BCFunc(0,       (j-1)*h);
-    arr(nj+N) = BCFunc((N-1)*h, (j-1)*h);
+% apply bc on X-Faces, 1 and N-1
+for k = 1:N
+    for j = 1:N
+      arr(1, j, k) = BCFunc(0,       h*(j-1), h*(k-1));
+      arr(N, j, k) = BCFunc(h*(N-1), h*(j-1), h*(k-1));
+    end
 end
 
-for i=1:N
-    % j = 1
-    arr(i)           = BCFunc((i-1)*h,  0*h);
-    % j = N
-    arr((N-1)*N + i) = BCFunc((i-1)*h,  (N-1)*h);
+% apply bc on Y-Faces
+for k = 1:N
+    for i = 1:N
+      arr(i, 1, k) = BCFunc(h*(i-1), 0,       h*(k-1));
+      arr(i, N, k) = BCFunc(h*(i-1), h*(N-1), h*(k-1));
+    end
 end
 
+% apply bc on Z-Faces
+for j = 1:N
+    for i = 1:N
+      arr(i, j, 1) = BCFunc(h*(i-1), h*(j-1), 0);
+      arr(i, j, N) = BCFunc(h*(i-1), h*(j-1), h*(N-1));
+    end
+end
 
 end
