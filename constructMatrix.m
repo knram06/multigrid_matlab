@@ -14,7 +14,7 @@ sixCoeff  = 6*invHsq;
 NN = N*N;
 
 for k=1:N
-    nnk = NN*k;
+    nnk = NN*(k-1);
     for j=1:N
         nj = (j-1)*N;
         for i=1:N

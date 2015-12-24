@@ -2,7 +2,10 @@ function arr = setupBoundaryConditions(arr, h)
 
 [NNN, ~] = size(arr);
 
-N = NNN^(1/3);
+N = uint32(NNN^(1/3));
+
+% reshape for now
+arr = reshape(arr, [N, N, N]);
 
 % apply bc on X-Faces, 1 and N-1
 for k = 1:N
@@ -27,5 +30,8 @@ for j = 1:N
       arr(i, j, N) = BCFunc(h*(i-1), h*(j-1), h*(N-1));
     end
 end
+
+% reshape before returning
+arr = reshape(arr, [N*N*N, 1]);
 
 end

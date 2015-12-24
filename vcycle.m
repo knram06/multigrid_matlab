@@ -12,10 +12,6 @@ if (level == 1)
     % RHS fix for non-homogenous Neumann
     %bLevels{level}(end) = beta;
     A = levelData(level).A;
-    N = levelData(level).N;
-    %b = reshape(levelData(level).b, [N*N, 1]);
-    
-    %x = A\b;
     levelData(level).x = A\levelData(level).b;
     
     %solnVec = xLevels{level};

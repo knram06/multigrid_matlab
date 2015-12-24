@@ -14,18 +14,24 @@ nodalWeights(3,2,:) = [0.03125, 0.0625, 0.03125];
 nodalWeights(3,3,:) = [0.015625, 0.03125, 0.015625];
 
 [NNN, ~] = size(r);
-Nf = NNN^(1/3);
+Nf = uint32(NNN^(1/3));
+
+% reshape for now
+r = reshape(r, [Nf, Nf, Nf]);
 
 [NNN, ~] = size(d);
-Nc = NNN^(1/3);
+Nc = uint32(NNN^(1/3));
+
+% reshape for now
+d = reshape(d, [Nc, Nc, Nc]);
 
 % TODO: not copying over boundary faces as they should be zero
 % based on the method I have adopted - change later?
 % or just use MATLAB vector syntax for this?
 %d(1, :, :) = r(1, 
 
-NFNF = Nf*Nf;
-NCNC = Nc*Nc;
+%NFNF = Nf*Nf;
+%NCNC = Nc*Nc;
 for kc=2:Nc-1
     for jc=2:Nc-1
         for ic=2:Nc-1
@@ -42,15 +48,18 @@ for kc=2:Nc-1
                 for jStep = 0:2
                     for iStep = 0:2
                         val = val + ...
-                              (r(NFNF*(k + kStep-1) + NF*(j + jStep-1) + (i+iStep)) * ...
+                              (r(i+iStep, j + jStep, k + kStep) * ...
                                nodalWeights(iStep+1, jStep+1, kStep+1));
                     end
                 end
             end % end of cube centered around fine grid cube with origin
             
-            d(NCNC*(kc-1) + NC*(jc-1) + i) = val;
+            d(ic, jc, kc) = val;
         end
     end
 end
+
+% reshape return value
+d = reshape(d, [Nc*Nc*Nc, 1]);
 
 end

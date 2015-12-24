@@ -2,13 +2,13 @@ function ef = prolong_correct_error(ec, ef)
 
 % get sizes
 [NNN, ~] = size(ef);
-Nf = NNN^(1/3);
+Nf = uint32(NNN^(1/3));
 
 % reshape for now
 ef = reshape(ef, [Nf, Nf, Nf]);
 
 [NNN, ~] = size(ec);
-Nc = NNN^(1/3);
+Nc = uint32(NNN^(1/3));
 
 ec = reshape(ec, [Nc, Nc, Nc]);
 

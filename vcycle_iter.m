@@ -16,7 +16,7 @@ for i=1:numLevels
     levelData(i).h     = h;
     
     A                  = constructMatrix(N, h);
-    [L,U]              = lu(A);
+    %[L,U]              = lu(A);
     levelData(i).A     = A;
     levelData(i).L     = tril(A, 0);  % referring Rajesh Gandham's code
     levelData(i).U     = triu(A, 1);  % referring Rajesh Gandham's code
