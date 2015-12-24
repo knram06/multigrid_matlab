@@ -12,6 +12,10 @@ global center;
 hSq = h*h;
 invMultFactor=1/6;
 
+% enforce the Dirichlet nodal values
+% on X = 0 and END planes
+u = setDirichletNodes(u, d, h);
+
 % MATLAB stores in column major
 % so change across k indices first!!
 
