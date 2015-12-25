@@ -1,29 +1,24 @@
 function [u, norm] = test_gs(length, numPoints)
 % Function to test Gauss-Seidel smoother
 
-global alpha;
-alpha = 1;
-global beta;
-beta = 2;
-
 h = length/(numPoints-1);
-u = zeros(numPoints, 1);
-d = zeros(numPoints, 1);
+u = zeros(numPoints*numPoints, 1);
+d = zeros(numPoints*numPoints, 1);
+A = constructMatrix(numPoints, h);
+L = tril(A, 0);
+U = triu(A, 1);
 
-u=setupBoundaryConditions(u, h);
+d=setupBoundaryConditions(d, h);
 
-% enforce end point Neumann
-d(end) = beta;
-
-[~, norm]=calc_residual(u, d, h);
-toler=1e-10;
+[~, norm]=calc_residual(A, u, d);
+toler=1e-8;
 cmpNorm = norm*toler;
 
 iterCount=1;
 tic;
 while(norm > cmpNorm)
-    u = gauss_seidel_smoother(u, d, h, 1);
-    [r, norm]=calc_residual(u, d, h);
+    u = gauss_seidel_smoother(u, d, L, U, 1);
+    [~, norm]=calc_residual(A, u, d);
     fprintf('%10d %10.9g\n', iterCount, norm);
     iterCount = iterCount+1;
 end
