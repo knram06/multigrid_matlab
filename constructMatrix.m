@@ -11,6 +11,9 @@ invHsq = 1/hSq;
 oneCoeff  = 1*invHsq;
 fourCoeff = 4*invHsq;
 
+%oneCoeff  = 1;
+%fourCoeff = 4;
+
 for j=1:N
     nj = (j-1)*N;
     for i=1:N

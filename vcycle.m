@@ -1,7 +1,5 @@
 function [levelData, norm] = vcycle(levelData, level, numLevels, gsIterNum)
 
-global beta;
-
 % reset lower level soln to zero
 if (level < numLevels)
     levelData(level).x = 0*levelData(level).x;

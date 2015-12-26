@@ -13,8 +13,8 @@ Nc = sqrt(NN);
 Nf = sqrt(NN);
 
 % reshape for convenience
-%d = reshape(d, [Nd, Nd]);
-%r = reshape(r, [N, N]);
+d = reshape(d, [Nc, Nc]);
+r = reshape(r, [Nf, Nf]);
 
 %[xLenF, yLenF, zLenF] = size(r);
 
@@ -38,16 +38,16 @@ for jc=2:Nc-1
         for jStep = 0:2
             for iStep = 0:2
                 val = val + ...
-                    (r((j + jStep-1)*Nf + (i+iStep)) * ...
+                    (r(i+iStep, j+jStep) * ...
                     nodalWeights(iStep+1, jStep+1) );
             end
         end % end of cube centered around fine grid cube with origin
         
-        d((jc-1)*Nc + ic) = val;
+        d(ic, jc) = val;
     end
 end
 
 % reshape back to 1D vector
-%d = reshape(d, [N*N, 1]);
+d = reshape(d, [Nc*Nc, 1]);
 
 end

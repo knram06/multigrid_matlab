@@ -12,7 +12,7 @@ capVoltage = 0;
 extrVoltage = -1350;
 % %global center;
 
-
+hSq = h*h;
 arr = 0*arr;
 %set on X=0 face
 for j=1:N
@@ -36,7 +36,7 @@ end
 %     %end
 % end
 
-% % enforce a BCFunc on the boudaries
+% enforce a BCFunc on the boudaries
 % for j=1:N
 %     nj = (j-1)*N;
 %     arr(nj+1) = BCFunc(0,       (j-1)*h);

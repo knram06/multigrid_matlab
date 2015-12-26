@@ -1,4 +1,4 @@
-function [u, norm] = test_lu(length, numPoints)
+function [u, rnorm] = test_lu(length, numPoints)
 
 % global alpha;
 % alpha = 1;
@@ -20,7 +20,7 @@ u = U\(L\d);
 
 %solnVec = xLevels{level};
 %residualVec = bLevels{level};
-[~, norm] = calc_residual(A, u, d);
+[~, rnorm] = calc_residual(A, u, d);
 
 %fprintf('ErrNorm: %10.9g\n', compare_and_get_norm(u, h));
 
