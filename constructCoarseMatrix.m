@@ -37,8 +37,8 @@ for k=1:N
                             selfCount = selfCount + 1;
                         % impose Dirichlet diag value although it shouldn't
                         % affect
-                        %else
-                        %    mat(pos, pos) = 1;
+                        else
+                            mat(pos, pos) = 1;
                         end
                     else
                         if( (rr <= extrInnerRad*extrInnerRad)...
@@ -46,8 +46,8 @@ for k=1:N
                             (rr >= extrOuterRad*extrOuterRad) )
                             mat(pos, pos-1) = -1;
                             selfCount = selfCount + 1;
-                        %else
-                        %    mat(pos, pos) = 1;
+                        else
+                            mat(pos, pos) = 1;
                         end
                     end
 
@@ -83,7 +83,7 @@ for k=1:N
                 mat(pos, pos-N)  = oneCoeff; mat(pos, pos+N)  = oneCoeff;
                 mat(pos, pos-1)  = oneCoeff; mat(pos, pos+1)  = oneCoeff;
                 
-                mat(pos, pos) = -sixCoeff;
+                mat(pos, pos)    = -sixCoeff;
             end
             
         end

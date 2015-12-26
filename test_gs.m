@@ -2,13 +2,13 @@ function u = test_gs(length, numPoints)
 % Function to test Gauss-Seidel smoother
 
 global capRadius;
-capRadius = 1.326e-5;
+capRadius = 1.326e-3;
 %capRadius = 0.044;
 global extrInnerRad;
-extrInnerRad = 1e-4;
+extrInnerRad = 1e-2;
 %extrInnerRad = 0.333;
 global extrOuterRad;
-extrOuterRad = 1.4e-4;
+extrOuterRad = 1.4e-2;
 %extrOuterRad = 0.4666;
 global capVoltage;
 capVoltage = 0;
@@ -23,9 +23,10 @@ d = zeros(numPoints, numPoints, numPoints);
 
 d=setupBoundaryConditions(d, h);
 %[~, norm]=calc_residual(u, d, h);
-rnorm = norm(reshape(d, [numPoints*numPoints*numPoints, 1]), 2);
+initNorm = norm(reshape(d, [numPoints*numPoints*numPoints, 1]), 2);
 toler=1e-8;
-cmpNorm = rnorm*toler;
+cmpNorm = initNorm*toler;
+rnorm = initNorm;
 
 iterCount=1;
 tic;

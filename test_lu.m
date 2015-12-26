@@ -1,14 +1,14 @@
-function [u, norm] = test_lu(length, numPoints)
+function [u, rnorm] = test_lu(length, numPoints)
 
 global capRadius;
-%capRadius = 1.326e-5;
-capRadius = 0.044;
+capRadius = 1.326e-5;
+%capRadius = 0.044;
 global extrInnerRad;
-%extrInnerRad = 1e-4;
-extrInnerRad = 0.333;
+extrInnerRad = 1e-4;
+%extrInnerRad = 0.333;
 global extrOuterRad;
-%extrOuterRad = 1.4e-4;
-extrOuterRad = 0.4666;
+extrOuterRad = 1.4e-4;
+%extrOuterRad = 0.4666;
 global capVoltage;
 capVoltage = 0;
 global extrVoltage;
@@ -37,7 +37,7 @@ u = reshape(x, [N, N, N]);
     
 %solnVec = xLevels{level};
 %residualVec = bLevels{level};
-[~, norm] = calc_residual(u, d, h);
+[~, rnorm] = calc_residual(u, d, h);
 
 %fprintf('ErrNorm: %10.9g\n', compare_and_get_norm(u, h));
 
