@@ -7,7 +7,7 @@ function x = gauss_seidel_smoother(x, b, L, U, gsIterNum)
 % so change across k indices first!!
 
 % DID NOT WORK: TEST: try zeroing out Neumann nodes and see if that helps
-%u = zero_out_neumann(u);
+%x = zero_out_neumann(x);
 
 for count=1:gsIterNum
     r = b - U*x;

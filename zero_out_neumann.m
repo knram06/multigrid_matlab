@@ -6,12 +6,16 @@ function u = zero_out_neumann(u)
 % we can try this approach.
 
 % try with 2D first
-[I, J] = size(u);
+[NN, ~] = size(u);
+N = uint32(sqrt(NN));
 
-for i=2:I-1
+u = reshape(u, [N, N]);
+
+for i=2:N-1
     u(i, 1) = 0;
-    u(i, J) = 0;
+    u(i, N) = 0;
 end
 
+u = reshape(u, [N*N, 1]);
 end
 
