@@ -22,7 +22,7 @@ u = allocGridLevels(coarseGridPoints, numLevels);
 d = allocGridLevels(coarseGridPoints, numLevels);
 
 % enforce some bcs here
-u{numLevels} = setupBoundaryConditions(u{numLevels}, h);
+d{numLevels} = setupBoundaryConditions(u{numLevels}, h);
 
 % TODO: store and preallocate A matrix - Store its LU?
 A = constructCoarseMatrix(coarseGridPoints, hc);
@@ -31,27 +31,29 @@ A = constructCoarseMatrix(coarseGridPoints, hc);
 % call the mg method
 % RELATIVE convergence criteria
 toler = 1e-8;
-[~,initNorm] = calc_residual(u{numLevels}, d{numLevels}, h);
+initNorm = residual_edges(u{numLevels}, d{numLevels}, h);
+%[~,initNorm] = calc_residual(u{numLevels}, d{numLevels}, h);
 %edgesNorm = residual_edges(u{numLevels});
 
 %initNorm = sqrt(initNorm*initNorm + edgesNorm*edgesNorm);
 cmpNorm = initNorm*toler;
 
-norm = initNorm;
+rnorm = initNorm;
 % do FMG initialization?
 if(useFMG)
-    [u, norm] = fmg_init(u, d, numLevels, hc, gsIterNum, 1, L, U);
+    [u, rnorm] = fmg_init(u, d, numLevels, hc, gsIterNum, 1, L, U);
 end
 
-iterCount = 1;
+iterCount = 0;
 fprintf('%-10s %10s %10s\n', 'Iter', 'Norm', 'ResidRednRatio');
+fprintf('%-10d %10.9g %10.9g\n', iterCount, rnorm, 1);
 tic;
-while(norm >= cmpNorm)
-    oldNorm = norm;
-    [u, norm] = vcycle(u, d, numLevels, numLevels, h, gsIterNum, L, U);
-    residRatio = norm/oldNorm;
-    fprintf('%-10d %10.9g %10.9g\n', iterCount, norm, residRatio);
+while(rnorm > cmpNorm)
+    oldNorm = rnorm;
+    [u, rnorm] = vcycle(u, d, numLevels, numLevels, h, gsIterNum, L, U);
+    residRatio = rnorm/oldNorm;
     iterCount = iterCount + 1;
+    fprintf('%-10d %10.9g %10.9g\n', iterCount, rnorm, residRatio);
 end
 toc;
 

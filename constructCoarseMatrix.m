@@ -9,6 +9,7 @@ matDim = N*N;
 mat = zeros(matDim, matDim);
 
 hSq = h*h;
+invH = 1/h;
 invHsq = 1/hSq;
 
 % cache some coeffs
@@ -49,11 +50,12 @@ for j=1:N
                 %end % end of if i==1 or N
                 
             else
+                mat(pos, pos) = invH;
                 % if j==0 or END
                 if(j == 1)
-                    mat(pos, pos+N) = -1;
+                    mat(pos, pos+N) = -invH;
                 elseif (j == N)
-                    mat(pos, pos-N) = -1;
+                    mat(pos, pos-N) = -invH;
                 end
             end
             

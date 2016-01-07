@@ -18,6 +18,12 @@ invMultFactor=1/4;
 % DID NOT WORK: TEST: try zeroing out Neumann nodes and see if that helps
 %u = zero_out_neumann(u);
 
+% enforce Dirichlet as part of smoother
+for j=1:yLen
+    u(1,j)    = d(1,j);
+    u(xLen,j) = d(xLen,j);
+end
+
 for count=1:gsIterNum
     for j=2:yLen-1
         for i=2:xLen-1
