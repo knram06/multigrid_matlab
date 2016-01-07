@@ -30,7 +30,7 @@ levelData(numLevels).b = setupBoundaryConditions(levelData(numLevels).b, levelDa
 
 % call the mg method
 % RELATIVE convergence criteria
-toler = 1e-6;
+toler = 1e-8;
 [~,initNorm] = calc_residual(levelData(numLevels).A, levelData(numLevels).x, levelData(numLevels).b);
 %edgesNorm = residual_edges(u{numLevels});
 
@@ -47,15 +47,16 @@ if(useFMG)
     [u, rnorm] = fmg_init(u, d, numLevels, hc, gsIterNum, 1, L, U);
 end
 
-iterCount = 1;
+iterCount = 0;
 fprintf('%-10s %10s %10s\n', 'Iter', 'Norm', 'ResidRednRatio');
+fprintf('%-10d %10.9g %10.9g\n', iterCount, rnorm, 1);
 tic;
-while(rnorm >= cmpNorm)
+while(rnorm > cmpNorm)
     oldNorm = rnorm;
     [levelData, rnorm] = vcycle(levelData, numLevels, numLevels, gsIterNum);
     residRatio = rnorm/oldNorm;
-    fprintf('%-10d %10.9g %10.9g\n', iterCount, rnorm, residRatio);
     iterCount = iterCount + 1;
+    fprintf('%-10d %10.9g %10.9g\n', iterCount, rnorm, residRatio);
 end
 toc;
 
