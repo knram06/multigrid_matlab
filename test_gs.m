@@ -1,4 +1,4 @@
-function [u, norm] = test_gs(length, numPoints)
+function [u, rnorm] = test_gs(length, numPoints)
 % Function to test Gauss-Seidel smoother
 
 global capVoltage;
@@ -12,17 +12,17 @@ h = length/(numPoints-1);
 u = zeros(numPoints, numPoints);
 d = zeros(numPoints, numPoints);
 
-u=setupBoundaryConditions(u, h);
-[~, norm]=calc_residual(u, d, h);
-toler=1e-10;
-cmpNorm = norm*toler;
+d=setupBoundaryConditions(d, h);
+rnorm=residual_edges(u, d, h);
+toler=1e-8;
+cmpNorm = rnorm*toler;
 
 iterCount=1;
 tic;
-while(norm > cmpNorm)
+while(rnorm > cmpNorm)
     u = gauss_seidel_smoother(u, d, h, 1);
-    [r, norm]=calc_residual(u, d, h);
-    fprintf('%10d %10.9g\n', iterCount, norm);
+    [r, rnorm]=calc_residual(u, d, h);
+    fprintf('%10d %10.9g\n', iterCount, rnorm);
     iterCount = iterCount+1;
 end
 toc;

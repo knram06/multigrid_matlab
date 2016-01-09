@@ -1,4 +1,4 @@
-function [u, norm] = test_lu(length, numPoints)
+function [u, rnorm] = test_lu(length, numPoints)
 
 global capVoltage;
 capVoltage = 0;
@@ -11,7 +11,7 @@ h = length/(numPoints-1);
 d = zeros(numPoints, numPoints);
 N = numPoints;
 A = constructCoarseMatrix(N, h);
-[L,U] = lu(A);
+%[L,U] = lu(A);
 
 d=setupBoundaryConditions(d, h);
 
@@ -20,7 +20,7 @@ d=setupBoundaryConditions(d, h);
 
 b = reshape(d, [N*N, 1]);
     
-x = U\(L\b);
+x = A\b;
 
 % the x obtained will be a 1D-vector
 % reshape into relevant matrix form
@@ -28,7 +28,7 @@ u = reshape(x, [N, N]);
     
 %solnVec = xLevels{level};
 %residualVec = bLevels{level};
-[~, norm] = calc_residual(u, d, h);
+[r, rnorm] = calc_residual(u, d, h);
 
 %fprintf('ErrNorm: %10.9g\n', compare_and_get_norm(u, h));
 

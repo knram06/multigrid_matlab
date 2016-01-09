@@ -13,16 +13,19 @@ invH = 1/h;
 invHsq = 1/hSq;
 
 % cache some coeffs
-oneCoeff = 1*invHsq;
-fourCoeff = 4*invHsq;
+%oneCoeff = 1*invHsq;
+%fourCoeff = 4*invHsq;
+
+oneCoeff  = 1;
+fourCoeff = 4;
 
 for j=1:N
     nj = N*(j-1);
     for i=1:N
         pos = nj + i;
         if(i == 1 || i == N || j == 1 || j == N)
-            mat(pos, pos) = 1;
             if(i==1 || i==N)
+                mat(pos, pos) = 1;
                 %                     tz = (k-1)*h - center(2);
                 %                     ty = (j-1)*h - center(1);
                 %                     rr = ty*ty + tz*tz;
@@ -50,12 +53,12 @@ for j=1:N
                 %end % end of if i==1 or N
                 
             else
-                mat(pos, pos) = invH;
+                mat(pos, pos) = 1;
                 % if j==0 or END
                 if(j == 1)
-                    mat(pos, pos+N) = -invH;
+                    mat(pos, pos+N) = -1;
                 elseif (j == N)
-                    mat(pos, pos-N) = -invH;
+                    mat(pos, pos-N) = -1;
                 end
             end
             

@@ -8,8 +8,15 @@ end
 % base case recursion
 if (level == 1)
     [N, ~, ~] = size(bLevels{level});
-    b = reshape(bLevels{level}, [N*N, 1]);
     
+    hSq = spacing*spacing;
+    for j=2:N-1
+        for i=2:N-1
+            bLevels{level}(i,j) = hSq*bLevels{level}(i,j);
+        end
+    end
+    
+    b = reshape(bLevels{level}, [N*N, 1]);
     x = U\(L\b);
     
     % the x obtained will be a 1D-vector
