@@ -1,0 +1,28 @@
+Hello,
+
+Attempt at V-Cycle MG solver, which solves all Dirichlet case of x*x-2*y*y+z*z imposed on boundaries
+and Laplace eqn.
+
+matlab_code: contains runme.m which sets up some simple vars and runs.
+
+c_code: Straightforwardly compilable with
+gcc -g mg_dirichlet_analytic.c -lm -Wall
+
+./a.out 3 3 3 // (parameter order: <coarse grid points> <number of levels> <smoothing iterations>)
+
+// R&P operators
+My implementation of R&P is likely to be confusing. Smoothing and restriction taken from Reference PDF attached.
+
+For restriction: (page 15 in PDF)
+- Say I am at coarse grid coordinates (ic, jc, kc). Then corresponding point in fine grid is (if, jf, kf) = (2*ic, 2*jc, 2*kc).
+- I take the unit cube centered around (if, jf, kf) and calculate the lower corner (as origin) by doing (if-1, jf-1, kf-1).
+- With this, I simply loop through the unit cube and keep taking nodalWeights into account (allocated and predefined on stack).
+
+For prolongation (page 14 in PDF)
+- Given a fine grid coord, I try to figure out how many components (either i,j,k) lie on coarseGrid also.
+- So if none of (i,j,k) lie on coarse grid, then it has to be the center coord, so sum up 8 neighbors and do (sum/8).
+- If only one of (i,j,k) lie on coarse grid planes, then it is on face. So get the 4 face corners and do (sum/4).
+- If two of (i,j,k) lie on coarse grid planes, it is on coarse edge. So get 2 neighbors and do (sum/2).
+- If all lie on coarse grid coords, then simply cover over value.
+
+
