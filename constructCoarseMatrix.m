@@ -41,9 +41,9 @@ for k=1:N
                             mat(pos, pos) = 1;
                         end
                     else
-                        if( (rr <= extrInnerRad*extrInnerRad)...
+                        if( (rr < extrInnerRad*extrInnerRad)...
                                    ||...
-                            (rr >= extrOuterRad*extrOuterRad) )
+                            (rr > extrOuterRad*extrOuterRad) )
                             mat(pos, pos-1) = -1;
                             selfCount = selfCount + 1;
                         else

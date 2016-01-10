@@ -42,9 +42,9 @@ for count=1:gsIterNum
                             u(1, j, k) = u(2, j, k);
                         end        
                     else
-                        if( (rr <= extrInnerRad*extrInnerRad) ...
+                        if( (rr < extrInnerRad*extrInnerRad) ...
                                  || ...
-                            (rr >= extrOuterRad*extrOuterRad) )
+                            (rr > extrOuterRad*extrOuterRad) )
                             u(xLen, j, k) = u(xLen-1, j, k);
                         end
                     end

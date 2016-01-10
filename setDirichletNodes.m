@@ -29,7 +29,7 @@ for k=1:K
         ty = h*(j-1)-center(1);
         rr = ty*ty + tz*tz;
         
-        if((rr > extrInnerRad*extrInnerRad) && (rr < extrOuterRad*extrOuterRad) )
+        if((rr >= extrInnerRad*extrInnerRad) && (rr <= extrOuterRad*extrOuterRad) )
             arr(i, j, k) = d(i, j, k);
         end
         
